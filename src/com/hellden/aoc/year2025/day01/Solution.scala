@@ -1,11 +1,31 @@
-package com.hellden.aoc.aoc2025
+package com.hellden.aoc.year2025.day01
 
-import scala.math.BigInt.int2bigInt
+import com.hellden.aoc.year2025.*
+import com.hellden.aoc.year2025.Day.*
 
-object Day01 extends Day(1):
+import scala.math.BigDecimal.*
+
+object Solution extends Day[BigInt](1):
+
+  override val answers: List[List[BigInt]] = List(
+    List(3.toBigInt, 6.toBigInt),
+    List(997.toBigInt, 5978.toBigInt)
+  )
+
+case class Solution(input: String) extends SolutionFull[BigInt]:
+
+  override def part1: BigInt =
+    countZeros:
+      case (0, _) => 1
+      case _ => 0
+
+  override def part2: BigInt =
+    countZeros:
+      (_, zeros) => zeros
 
   private def countZeros(f: (direction: BigInt, zeros: BigInt) => BigInt): BigInt =
-    inputLines
+    input
+      .asLines
       .map:
         case s"L$n" => -BigInt(n)
         case s"R$n" => BigInt(n)
@@ -20,12 +40,3 @@ object Day01 extends Day(1):
               (100 - newDirection) / 100
           (normalizedDirection, count + f(normalizedDirection, zeros))
       .count
-
-  override def part1: BigInt = // 997
-    countZeros:
-      case (0, _) => 1
-      case _ => 0
-
-  override def part2: BigInt = // 5978
-    countZeros:
-      (_, zeros) => zeros
