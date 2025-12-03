@@ -7,6 +7,8 @@ import scala.jdk.CollectionConverters.*
 
 object Day:
 
+  given Conversion[BigDecimal, BigInt] = _.toBigInt
+
   extension (s: String)
     def asLines: IndexedSeq[String] =
       s.split('\n').toIndexedSeq

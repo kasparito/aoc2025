@@ -3,15 +3,17 @@ package com.hellden.aoc.year2025.day01
 import com.hellden.aoc.year2025.*
 import com.hellden.aoc.year2025.Day.*
 
-import scala.math.BigDecimal.*
-
 object Day1 extends Day[BigInt](1):
   override val answers: List[List[BigInt]] = List(
-    List(3.toBigInt, 6.toBigInt),
-    List(997.toBigInt, 5978.toBigInt)
+    List(3, 6),
+    List(997, 5978)
   )
 
 case class Day1(input: String) extends SolutionFull[BigInt]:
+
+  private val rotations = input.asLines.map:
+    case s"L$n" => -BigInt(n)
+    case s"R$n" => BigInt(n)
 
   override def part1: BigInt =
     countZeros:
@@ -23,12 +25,8 @@ case class Day1(input: String) extends SolutionFull[BigInt]:
       (_, zeros) => zeros
 
   private def countZeros(f: (direction: BigInt, zeros: BigInt) => BigInt): BigInt =
-    input
-      .asLines
-      .map:
-        case s"L$n" => -BigInt(n)
-        case s"R$n" => BigInt(n)
-      .foldLeft((direction = BigInt(50), count = BigInt(0))):
+    rotations
+      .foldLeft[(direction: BigInt, count: BigInt)]((50, 0)):
         case ((direction, count), rotation) =>
           val newDirection = direction + rotation
           val normalizedDirection = newDirection.mod(100)
