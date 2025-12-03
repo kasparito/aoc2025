@@ -13,20 +13,22 @@ object Solution extends Day[BigInt](3):
 
 case class Solution(input: String) extends SolutionFull[BigInt]:
 
-  private def max(bank: String, acc: List[Char], take: Int): Option[String] =
+  private val batteryBanks: Seq[String] = input.asLines
+
+  override def part1: BigInt = totalOutputJoltage(2)
+
+  override def part2: BigInt = totalOutputJoltage(12)
+
+  private def totalOutputJoltage(n: Int): BigInt = batteryBanks.flatMap(maxJoltage(_, n)).sum
+
+  private def maxJoltage(bank: String, take: Int, acc: Seq[Char] = Seq.empty): Option[BigInt] =
     if take == 0 then
-      Some(acc.mkString)
+      Some(BigInt(acc.mkString))
     else
       bank
         .zipWithIndex
         .sortBy((char, _) => -char)
         .view
         .flatMap: (c, index) =>
-          max(bank.substring(index + 1), acc :+ c, take - 1)
+          maxJoltage(bank.substring(index + 1), take - 1, acc :+ c)
         .headOption
-
-  override def part1: BigInt =
-    input.asLines.flatMap(max(_, Nil, 2)).map(BigInt(_)).sum
-
-  override def part2: BigInt =
-    input.asLines.flatMap(max(_, Nil, 12)).map(BigInt(_)).sum
