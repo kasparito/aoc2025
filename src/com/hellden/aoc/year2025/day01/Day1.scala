@@ -5,14 +5,13 @@ import com.hellden.aoc.year2025.Day.*
 
 import scala.math.BigDecimal.*
 
-object Solution extends Day[BigInt](1):
-
+object Day1 extends Day[BigInt](1):
   override val answers: List[List[BigInt]] = List(
     List(3.toBigInt, 6.toBigInt),
     List(997.toBigInt, 5978.toBigInt)
   )
 
-case class Solution(input: String) extends SolutionFull[BigInt]:
+case class Day1(input: String) extends SolutionFull[BigInt]:
 
   override def part1: BigInt =
     countZeros:

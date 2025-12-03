@@ -5,14 +5,13 @@ import com.hellden.aoc.year2025.Day.*
 
 import scala.math.BigDecimal.*
 
-object Solution extends Day[BigInt](2):
-
+object Day2 extends Day[BigInt](2):
   override val answers: List[List[BigInt]] = List(
     List(1227775554.toBigInt, 4174379265L.toBigInt),
     List(38158151648L.toBigInt, 45283684555L.toBigInt)
   )
 
-case class Solution(input: String) extends SolutionFull[BigInt]:
+case class Day2(input: String) extends SolutionFull[BigInt]:
 
   private val ids = input.asLines.mkString.split(',').toSet.flatMap:
     case s"$start-$stop" =>

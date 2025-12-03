@@ -5,13 +5,13 @@ import com.hellden.aoc.year2025.Day.*
 
 import scala.math.BigDecimal.*
 
-object Solution extends Day[BigInt](3):
+object Day3 extends Day[BigInt](3):
   override val answers: List[List[BigInt]] = List(
     List(357.toBigInt, 3121910778619L.toBigInt),
     List(17443.toBigInt, 172167155440541L.toBigInt)
   )
 
-case class Solution(input: String) extends SolutionFull[BigInt]:
+case class Day3(input: String) extends SolutionFull[BigInt]:
 
   private val batteryBanks: Seq[String] = input.asLines
 
