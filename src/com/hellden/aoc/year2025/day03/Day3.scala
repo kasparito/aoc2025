@@ -25,7 +25,7 @@ case class Day3(input: String) extends SolutionFull[BigInt]:
     else
       bank
         .zipWithIndex
-        .sortBy((char, _) => -char)
+        .sortBy((char, index) => (-char, index))
         .view
         .flatMap: (c, index) =>
           maxJoltage(bank.substring(index + 1), take - 1, acc :+ c)
