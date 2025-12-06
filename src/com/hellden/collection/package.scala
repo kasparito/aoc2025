@@ -1,13 +1,28 @@
 package com.hellden
 
+import scala.annotation.tailrec
+
 package object collection:
 
   extension [A](i: Iterable[A])
+
     def cross[B](s: Seq[B]): Iterable[(A, B)] =
       for
         e1 <- i
         e2 <- s
       yield (e1, e2)
+
+    def splitWhen(f: A => Boolean): Seq[Seq[A]] =
+      @tailrec
+      def splitRec(remaining: Iterable[A], current: Seq[A] = Seq.empty, acc: Seq[Seq[A]] = Seq.empty): Seq[Seq[A]] =
+        remaining.headOption match
+          case None =>
+            acc :++ Option.when(current.nonEmpty)(current)
+          case Some(value) if f(value) =>
+            splitRec(remaining.tail, Seq.empty, acc :++ Option.when(current.nonEmpty)(current))
+          case Some(value) =>
+            splitRec(remaining.tail, current :+ value, acc)
+      splitRec(i)
 
   extension [T](s: Seq[T])
     def middle: T =
