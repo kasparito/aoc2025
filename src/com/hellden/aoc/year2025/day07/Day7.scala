@@ -17,7 +17,7 @@ case class Day7(input: String) extends SolutionFull[BigInt]:
 
   override def part1: BigInt =
     splitters
-      .foldLeft((beams = Set(input.indexOf('S')), splitCount = 0)):
+      .foldLeft((beams = Set(start), splitCount = 0)):
         case ((beams, splitCount), splits) =>
           val splitBeams = beams.flatMap: beam =>
             if splits(beam) then Set(beam - 1, beam + 1) else Set(beam)
@@ -26,7 +26,7 @@ case class Day7(input: String) extends SolutionFull[BigInt]:
 
   override def part2: BigInt =
     splitters
-      .foldLeft[Map[Int, BigInt]](Map(input.indexOf('S') -> 1)):
+      .foldLeft[Map[Int, BigInt]](Map(start -> 1)):
         case (beamTimelines, splits) =>
           val splitBeams = beamTimelines.view.flatMap: (beam, timelines) =>
             if splits(beam) then Map(beam - 1 -> timelines, beam + 1 -> timelines) else Map(beam -> timelines)
